@@ -4,6 +4,7 @@ import { HeroSection } from "@/components/home/hero-section";
 import { LeaderboardCard } from "@/components/leaderboard/leaderboard-card";
 import { mockPlayers } from "@/lib/mock-data";
 import { Header } from "@/components/layout/header";
+import { AuthButtons } from "@/components/auth-buttons";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
             <LeaderboardCard players={mockPlayers} />
           </div>
         </section>
+        <AuthButtons />
       </main>
     </div>
   );

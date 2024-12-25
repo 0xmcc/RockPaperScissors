@@ -1,4 +1,4 @@
-import { PlayerStats } from "@/types/game";
+import type { PlayerStats } from "@/types/game";
 import { calculateWinRate } from "@/lib/game/calculate-win-rate";
 
 interface PlayerStatsProps {

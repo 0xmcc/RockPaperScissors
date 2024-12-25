@@ -10,8 +10,14 @@ export interface PlayerStats {
 export interface Player {
   id: string;
   name: string;
+  balance: number;
   avatar: string;
-  stats: PlayerStats;
+  stats: {
+    wins: number;
+    losses: number;
+    draws: number;
+    elo: number;
+  };
 }
 
 export type GameState = "waiting" | "playing" | "finished";
@@ -23,6 +29,7 @@ export type MoveInventory = {
 };
 
 export interface StakeInfo {
-  move: Move;
   player: string;
+  amount: number;
+  move?: Move;
 }

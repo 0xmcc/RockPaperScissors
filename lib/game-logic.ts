@@ -1,4 +1,4 @@
-import { Move, Battle, Player } from "@/types/game";
+import { Move, Player } from "@/types/game";
 
 export function determineWinner(move1: Move, move2: Move): 'player1' | 'player2' | 'draw' {
   if (move1 === move2) return 'draw';
@@ -14,6 +14,7 @@ export function determineWinner(move1: Move, move2: Move): 'player1' | 'player2'
 
 export function calculateNewStats(currentStats: Player['stats'], hasWon: boolean, isDraw: boolean) {
   return {
+    ...currentStats,
     wins: currentStats.wins + (hasWon ? 1 : 0),
     losses: currentStats.losses + (!hasWon && !isDraw ? 1 : 0),
     draws: currentStats.draws + (isDraw ? 1 : 0),

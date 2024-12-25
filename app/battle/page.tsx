@@ -1,70 +1,77 @@
 "use client";
 
-import { mockPlayers } from "@/lib/mock-data";
 import { useGameState } from "@/hooks/use-game-state";
 import { Card } from "@/components/ui/card";
 import { PlayerCard } from "@/components/game/player-card";
 import { StakesDisplay } from "@/components/game/stakes-display";
 import { GameControls } from "@/components/game/game-controls";
 import { StakeableInventory } from "@/components/game/stakeable-inventory";
+import { BattleControls } from "@/components/game/battle-controls";
 
 export default function BattlePage() {
   const {
     gameState,
-    inventory,
-    stakes,
     selectedMove,
     opponentMove,
-    result,
-    handleStake,
     handleMoveSelect,
-    handlePlayAgain,
-    canUseMove,
+    handleStakeSelect,
+    maxStakeAmount,
     player1,
     player2
   } = useGameState();
 
+  const selectedMoveEmoji = {
+    'rock': '✊',
+    'paper': '✋',
+    'scissors': '✌️'
+  }[selectedMove ?? 'rock'] || '';
+
   return (
-    <main className="container px-4 py-4 pb-20 md:py-8 md:pb-24">
-      <div className="max-w-2xl mx-auto space-y-4 md:space-y-8">
-        <PlayerCard 
-          player={player2} 
-          isActive={gameState === "playing"}
-          isOpponent
-        />
-        
-        <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4">
-          <div className="w-full md:w-1/3">
-            <PlayerCard player={player1} />
-          </div>
-          <div className="flex-1">
-            <StakesDisplay 
-              stakes={stakes}
-              player1Name={player1.name}
-              player2Name={player2.name}
-            />
-          </div>
+    <main className="container px-4 py-8 pb-24">
+      <div className="max-w-4xl mx-auto space-y-6">
+        {/* Players Section */}
+        <div className="grid gap-4">
+          {/* Opponent Card */}
+          <Card className="p-6 bg-gradient-to-br from-background to-muted">
+            <div className="flex justify-between items-center">
+              <PlayerCard 
+                player={player2} 
+                isActive={gameState === "playing"}
+                isOpponent
+              />
+              {opponentMove && <span className="text-4xl opacity-50">?</span>}
+            </div>
+          </Card>
+
+          {/* Player Card */}
+          <Card className="p-6 bg-gradient-to-br from-muted to-background">
+            <div className="flex justify-between items-center">
+              <PlayerCard 
+                player={player1}
+                isActive={gameState === "playing"}
+              />
+              {selectedMove && (
+                <span className="text-4xl w-16 h-16 flex items-center justify-center border-2 border-white/20 rounded-full">
+                  {selectedMoveEmoji}
+                </span>
+              )}
+            </div>
+          </Card>
         </div>
 
-        <Card className="p-4 md:p-8">
-          {gameState === "waiting" ? (
-            <StakeableInventory
-              inventory={inventory}
-              onStake={handleStake}
-              disabled={stakes.length >= 2}
-              stakes={stakes}
-            />
-          ) : (
-            <GameControls
-              gameState={gameState}
-              selectedMove={selectedMove}
-              result={result}
-              opponentMove={opponentMove}
-              canUseMove={canUseMove}
-              onMoveSelect={handleMoveSelect}
-              onPlayAgain={handlePlayAgain}
-            />
-          )}
+        {/* Battle Arena */}
+        <Card className="p-6">
+          <div className="space-y-8">
+            {gameState === "waiting" && (
+              <BattleControls
+                selectedMove={selectedMove}
+                onMoveSelect={handleMoveSelect}
+                disabled={gameState !== "waiting"}
+                onStakeSelect={handleStakeSelect}
+                maxStake={maxStakeAmount}
+              />
+            )}
+          </div>
         </Card>
       </div>
     </main>

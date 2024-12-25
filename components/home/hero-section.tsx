@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { AuthButtons } from "@/components/auth-buttons";
 
 export function HeroSection() {
   return (
@@ -19,9 +20,7 @@ export function HeroSection() {
           </p>
 
           <div className="flex justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
-              <Link href="/battle">Play Now</Link>
-            </Button>
+            <AuthButtons />
           </div>
         </div>
       </div>
