@@ -28,9 +28,6 @@ export function HeroSection() {
             Climb the ranks and become a champion.
           </p>
 
-          <div className="flex justify-center">
-            <WalletButton />
-          </div>
         </div>
       </div>
     </section>
