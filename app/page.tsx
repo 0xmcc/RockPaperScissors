@@ -4,9 +4,19 @@ import { HeroSection } from "@/components/home/hero-section";
 import { LeaderboardCard } from "@/components/leaderboard/leaderboard-card";
 import { mockPlayers } from "@/lib/mock-data";
 import { Header } from "@/components/layout/header";
-import { AuthButtons } from "@/components/auth-buttons";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary">
       <Header />
@@ -17,7 +27,6 @@ export default function Home() {
             <LeaderboardCard players={mockPlayers} />
           </div>
         </section>
-        <AuthButtons />
       </main>
     </div>
   );

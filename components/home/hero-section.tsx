@@ -1,10 +1,19 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { AuthButtons } from "@/components/auth-buttons";
+import { WalletButton } from "@/components/wallet/wallet-button";
+import { useEffect, useState } from "react";
 
 export function HeroSection() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <section className="relative overflow-hidden">
       <div className="container mx-auto px-4 py-24 relative z-10">
@@ -20,7 +29,7 @@ export function HeroSection() {
           </p>
 
           <div className="flex justify-center">
-            <AuthButtons />
+            <WalletButton />
           </div>
         </div>
       </div>
